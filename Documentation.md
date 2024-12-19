@@ -167,7 +167,7 @@ Ensure you have the following tools installed on your local machine:
 1. Clone the Repository. Before cloning the repo make sure you fork the original repo on git hub
 
 ```bash
-git clone https://github.com/azumahjoshua/fullstack-todo-list.git
+git clone https://github.com/Francismensah/azubiafrica-cloud-assessment.git
 cd fullstack-todo-list
 ```
 
