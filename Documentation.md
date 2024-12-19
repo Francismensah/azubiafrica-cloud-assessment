@@ -73,7 +73,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 The mongodb service use an officail Docker image. No custom `Dockerfile` is required for this component.
 
-We should also create .`dockerignore` file in the each of the directory to ensure we only the necessary files to our docker container 
+We should also create .`dockerignore` file in the each of the directory to ensure we only the necessary files to our docker container
 
 ```docker
 # Node.js specific
@@ -149,7 +149,6 @@ networks:
 
 volumes:
   mongo-data:
-
 ```
 
 ### Documentation
@@ -184,31 +183,33 @@ MONGODB_URI=mongodb://mongodb:27017/todo
 docker compose up -d
 ```
 
-![Screenshot from 2024-12-15 14-27-44.png](./images/img1.png)
+![Screenshot from 2024-12-15 14-27-44.png](./images/img-1.png)
+![Screenshot from 2024-12-15 14-27-44.png](./images/img-2.png)
 
 ### Network and Security Configurations
 
 1. **Custom Docker Network**:
-    - The services in this project are connected via a custom Docker network named `app-network`.
-    - This network is of type **bridge**, which allows the containers to communicate with each other while isolating them from external systems unless explicitly exposed.
-    - Using a custom network ensures that containers can resolve each other by their service names (e.g., `mongodb`, `api-server`, `frontend`) without hardcoding IP addresses.
+   - The services in this project are connected via a custom Docker network named `app-network`.
+   - This network is of type **bridge**, which allows the containers to communicate with each other while isolating them from external systems unless explicitly exposed.
+   - Using a custom network ensures that containers can resolve each other by their service names (e.g., `mongodb`, `api-server`, `frontend`) without hardcoding IP addresses.
 2. **Exposed Ports**:
-    
-    Each service has specific ports exposed to facilitate communication and access.
-    
-    - **Frontend**: Exposes port `8080` to make the web application accessible via the host machine.
-    - **Backend API**: Exposes port `3000` to allow interaction with the REST API for the frontend and testing tools.
-    - **MongoDB**: Exposes port `27017`, but it is only accessible within the `app-network` to enhance security. This ensures the database cannot be accessed directly from outside unless explicitly configured.
+
+   Each service has specific ports exposed to facilitate communication and access.
+
+   - **Frontend**: Exposes port `8080` to make the web application accessible via the host machine.
+   - **Backend API**: Exposes port `3000` to allow interaction with the REST API for the frontend and testing tools.
+   - **MongoDB**: Exposes port `27017`, but it is only accessible within the `app-network` to enhance security. This ensures the database cannot be accessed directly from outside unless explicitly configured.
+
 3. **Environment Variables for Sensitive Data**:
-    - Example environment variables:
-        - Database credentials, and any other sensitive information are stored in an `.env` file instead of hardcoding them into the application.
-    
+   - Example environment variables:
+     - Database credentials, and any other sensitive information are stored in an `.env` file instead of hardcoding them into the application.
 
 ### Troubleshooting Guide
 
 1.  Run `docker logs <container-id>` to debug
 
-![Screenshot from 2024-12-15 14-57-56.png](./images/img2.png)
+![Screenshot from 2024-12-15 14-57-56.png](./images/img-3.png)
+![Screenshot from 2024-12-15 14-57-56.png](./images/img-4.png)
 
 ### Container Testing Script
 
@@ -222,7 +223,7 @@ To test if the frontend service is running and accessible: we will use postmand:
 http://localhost:8080/
 ```
 
-![Screenshot from 2024-12-15 15-15-41.png](./images/img3.png)
+![Screenshot from 2024-12-15 15-15-41.png](./images/img-5.png)
 
 ---
 
@@ -234,27 +235,41 @@ To test if the backend service is running and accessible:
 http://localhost:3000/api/todos
 ```
 
-![Screenshot from 2024-12-15 15-25-56.png](./images/img4.png)
+![Screenshot from 2024-12-15 15-25-56.png](./images/img-7.png)
 
 ```docker
 http://localhost:3000/api/gettodos
 ```
 
-![Screenshot from 2024-12-15 15-23-21.png](./images/img5.png)
+![Screenshot from 2024-12-15 15-23-21.png](./images/img-6.png)
 
 ---
 
 ### MongoDB
 
-To verify that the MongoDB  container is running and accessible: we will use MongoDB Compass
+To verify that the MongoDB container is running and accessible: we will use MongoDB Compass
 
 ```bash
 mongodb://localhost:27017/
 ```
 
-![Screenshot from 2024-12-15 15-40-36.png](./images/img6.png)
+![Screenshot from 2024-12-15 15-40-36.png](./images/img-8.png)
 
-![Screenshot from 2024-12-15 15-28-53-1.png](./images/img7.png)
+
+### Clean Workspace
+
+To clean and tear down all running containers, networks and volumes
+
+```bash
+docker compose down
+```
+```bash
+docker volume prune
+```
+
+![Screenshot from 2024-12-15 15-40-36.png](./images/img-9.png)
+![Screenshot from 2024-12-15 15-40-36.png](./images/img-10.png)
+
 
 ### **Summary**
 
